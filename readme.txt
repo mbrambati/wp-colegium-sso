@@ -1,5 +1,5 @@
 === WP Colegium SSO ===
-Contributors: mbrambati
+Contributors: mbrambaticolegium
 Tags: sso, jwt, authentication, single sign-on
 Requires at least: 5.0
 Tested up to: 6.2

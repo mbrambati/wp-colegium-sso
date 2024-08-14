@@ -1,6 +1,6 @@
 <?php
 /**
- * Plugin Name: WP Colegium SSO
+ * Plugin Name: Colegium SSO
  * Description: Plugin de SSO para WordPress que permite la autenticación utilizando JWT.
  * Version: 1.0.0
  * Author: Tu Nombre
@@ -29,7 +29,7 @@ function handle_sso_login(WP_REST_Request $request) {
     $token = $request->get_param('token');
 
     // Obtener la clave privada desde las opciones del plugin
-    $key = get_option('wp_colegium_sso_private_key', '');
+    $key = get_option('colegium_sso_private_key', '');
 
     if (!$key) {
         return new WP_REST_Response('Clave privada no configurada', 500);

@@ -41,7 +41,8 @@ function handle_sso_login(WP_REST_Request $request) {
             $email = $payload['email'];
             $user = get_user_by('email', $email);
 
-            if ($user) {
+            // Verificar si el usuario tiene exclusivamente el rol de "subscriber"
+            if ($user && count($user->roles) === 1 && $user->roles[0] === 'subscriber') {
                 wp_set_current_user($user->ID);
                 wp_set_auth_cookie($user->ID);
                 wp_redirect(admin_url());

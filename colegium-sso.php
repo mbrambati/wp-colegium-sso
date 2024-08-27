@@ -28,8 +28,9 @@ add_action('rest_api_init', function () {
 function handle_sso_login(WP_REST_Request $request) {
     $token = $request->get_param('token');
 
-    // Obtener la clave privada desde las opciones del plugin
+    // Obtener la clave privada y la URL de redirección desde las opciones del plugin
     $key = get_option('colegium_sso_private_key', '');
+    $redirect_url = get_option('colegium_sso_redirect_url', admin_url());
 
     if (!$key) {
         return new WP_REST_Response('Clave privada no configurada', 500);
@@ -45,7 +46,9 @@ function handle_sso_login(WP_REST_Request $request) {
             if ($user && count($user->roles) === 1 && $user->roles[0] === 'subscriber') {
                 wp_set_current_user($user->ID);
                 wp_set_auth_cookie($user->ID);
-                wp_redirect(admin_url());
+                
+                // Redirigir al usuario a la URL configurada
+                wp_redirect($redirect_url);
                 exit;
             } else {
                 return new WP_REST_Response('Usuario no encontrado', 404);
